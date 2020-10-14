@@ -12,7 +12,7 @@ module.exports = {
 		const verifyRole = await message.guild.roles.resolve(args[0]);
 		if(!verifyRole) return helper.embed(message, { color: '#cc0000', description: 'Error: Cannot find role within server' });
 
-		const doesExist = await db.prepare('SELECT * FROM server_settings WHERE setting_name = ?').get('verify_role');
+		const doesExist = await db.prepare('SELECT * FROM server_settings WHERE setting_name = ? AND guild_id = ?').get('verify_role', message.guild.id);
 
 		if(doesExist && doesExist.length > 0) {
 			await db.prepare('INSERT OR REPLACE INTO server_settings (id, guild_id, setting_name, setting_value) VALUES (?, ?, ?, ?)').run(doesExist.id, message.guild.id, 'verify_role', args[0]);
