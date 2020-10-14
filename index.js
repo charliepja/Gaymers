@@ -35,6 +35,8 @@ client.on('guildCreate', async (guild) => {
 });
 
 client.on('guildMemberAdd', async (member) => {
+	const getNonVerifiedRole = await member.guild.roles.resolve('762328511796346881');
+	member.roles.add(getNonVerifiedRole);
 	const getWelcomeChannel = await db.prepare('SELECT * FROM server_settings WHERE guild_id = ? AND setting_name = ?').get(member.guild.id, 'welcome_channel');
 	if(!getWelcomeChannel) return;
 	const welcomeChannel = await member.guild.channels.resolve(getWelcomeChannel.setting_value);
