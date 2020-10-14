@@ -17,7 +17,7 @@ module.exports.verifyMember = async (message, db) => {
 		if(!getRole) return this.embed(message, { color: '#cc0000', description: 'Error: Cannot find verification role!' });
 
 		const getNonVerifiedRole = await message.guild.roles.resolve('762328511796346881');
-		message.member.roles.add(getNonVerifiedRole);
+		message.member.roles.remove(getNonVerifiedRole);
 
 		return message.member.roles.add(getRole.id);
 	}
