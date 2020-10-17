@@ -100,7 +100,7 @@ client.on('message', async (message) => {
 
 		if(now < expiryTime) {
 			const timeLeft = (expiryTime - now) / 1000;
-			return commandHelper.embed(message, `Please wait ${timeLeft.toFixed(1)} more second(s) before re-using ${command.name}!`);
+			return commandHelper.embed(message, { color: '#c9e0dd', description: `Please wait ${timeLeft.toFixed(1)} more second(s) before re-using ${command.name}!` });
 		}
 	}
 
