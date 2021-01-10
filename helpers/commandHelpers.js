@@ -25,3 +25,34 @@ module.exports.verifyMember = async (message, db) => {
 		if(error) throw error;
 	}
 };
+
+module.exports.createResponseQuestion = async (message, question, channelToSend, filter) => {
+	// Creates question
+	// waits for response
+	// returns response
+
+	// Does Channel Exist?
+	const suppliedChannel = await message.client.channels.resolve(channelToSend);
+	if(!suppliedChannel) return;
+
+	// Does Question Exist?
+	if(question.length <= 0) return;
+
+	// Set Filter
+	const questionFilter = filter || (m => m.author.id === message.author.id);
+
+	const questionEmbed = new MessageEmbed()
+		.setColor('#919b57')
+		.setDescription(question)
+		.setTimestamp();
+
+	suppliedChannel.send({ embed: questionEmbed });
+
+	const messageCollector = await suppliedChannel.awaitMessages(questionFilter, { max: 1, time: 120000 });
+	if(messageCollector && messageCollector.size > 0) {
+		const firstResponse = messageCollector.first();
+		return firstResponse.content;
+	}
+
+	return;
+};
