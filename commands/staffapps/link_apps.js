@@ -5,6 +5,7 @@ module.exports = {
 	guildOnly: true,
 	settings: false,
 	memberPermission: 'MANAGE_MESSAGES',
+	category: 'staffapps',
 	name: 'link-app',
 	description: 'Sends an embed message to the staff application channel',
 	usage: '',

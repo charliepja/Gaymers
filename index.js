@@ -13,12 +13,14 @@ client.commands = new Discord.Collection();
 client.utils = new Discord.Collection();
 client.verification = new Discord.Collection();
 client.welcome = new Discord.Collection();
+client.staffapps = new Discord.Collection();
 
 const modules = fs.readdirSync(path.resolve('commands'));
 
 clientHelper.generateCommands(client.commands, client.utils, 'utils');
 clientHelper.generateCommands(client.commands, client.verification, 'verification');
 clientHelper.generateCommands(client.commands, client.welcome, 'welcome');
+clientHelper.generateCommands(client.commands, client.staffapps, 'staffapps');
 
 client.on('ready', async () => {
 	console.log('Hello World!');
